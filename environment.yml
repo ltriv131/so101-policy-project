@@ -1,0 +1,18 @@
+# Create:  conda env create -f environment.yml
+# Update:  conda env update -f environment.yml --prune
+# Activate: conda activate so101-py312
+name: so101-py312
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  # Video encoding/decoding for recorded datasets (lerobot-record, lerobot-train)
+  - ffmpeg=7.1.1
+  - pip
+  - pip:
+      # CUDA builds of torch; without this, Windows gets a CPU-only torch from PyPI
+      - --extra-index-url https://download.pytorch.org/whl/cu130
+      - torch==2.11.0
+      - torchvision==0.26.0
+      # feetech: SO-101 servo bus; core-scripts: record/teleop/cameras/datasets; training: lerobot-train
+      - lerobot[feetech,core-scripts,training]==0.6.1
